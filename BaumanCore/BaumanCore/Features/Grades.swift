@@ -77,6 +77,50 @@ struct GradesView: View {
              Spacer()
          }
      }
+    TabView(selection: $selectedTab){
+        Color.clear
+            .tag(0)
+            .tabItem{
+                Image(systemName: "map")
+                Text("Маршрут")
+            }
+        Color.clear
+            .tag(1)
+            .tabItem{
+                Image(systemName: "house")
+                Text("Главная")
+            }
+        Color.clear
+            .tag(2)
+            .tabItem{
+                Image(systemName: "calendar")
+                Text("Расписание")
+            }
+        Color.clear
+            .tag(3)
+            .tabItem{
+                Image(systemName: "chart.bar")
+                Text("Успеваемость")
+            }
+        Color.clear
+            .tag(4)
+            .tabItem{
+                Image(systemName: "person")
+                Text("Аккаунт")
+            }
+    }
+    .onChange(of: selectedTab){ newValue in
+        switch newValue{
+            case 0: print("0")
+            case 1: print("1")
+            case 2: print("2")
+            case 3: print("3")
+            case 4: print("4")
+            default: break
+        }
+    }
+}
+}
      
     
     // MARK: - Кнопки вкладки
