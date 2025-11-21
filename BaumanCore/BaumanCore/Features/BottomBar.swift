@@ -42,7 +42,7 @@ struct BottomBarView: View {
                     Text("Успеваемость")
                 }
             
-            Color.clear
+            ProfileView()
                 .tag(4)
                 .tabItem {
                     Image(systemName: "person")
