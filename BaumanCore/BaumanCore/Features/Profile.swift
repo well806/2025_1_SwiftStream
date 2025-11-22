@@ -38,21 +38,7 @@ struct ProfileView: View {
             
             Spacer(minLength: 0)
             
-            HStack {
-                Button {
-                    print("нажата")
-                } label: {
-                    Text("Назад")
-                        .font(.headline)
-                        .frame(maxWidth: .maximum(150, 30))
-                        .padding(.vertical, 10)
-                }
-                .buttonStyle(.bordered)
-                .buttonBorderShape(.capsule)
-                Spacer()
-            }
-            .padding(.horizontal)
-            .padding(.bottom)
+
         }
         .navigationTitle("Личный кабинет")
     }
