@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-struct GradesView: View {
+struct Grades: View {
     @State private var selectedTab: Tab = .current
     
     enum Tab {
@@ -10,190 +10,67 @@ struct GradesView: View {
         case session
     }
     
-    let subjects: [SubjectData] = [
-
-        SubjectData(
-            name: "Иностранный язык",
-            progress: "0/100",
-            lessons: [
-                Lesson(title: "Семинар 1", date: "10.09.25", status: "Посещено", statusColor: .green),
-                Lesson(title: "Лекция 1", date: "13.09.25", status: "Пропущено", statusColor: .red),
-                Lesson(title: "Лабораторная работа 1", date: "21.09.25", status: "Защищено вовремя", statusColor: .green),
-                Lesson(title: "Лабораторная работа 2", date: "01.10.25", status: "Защищено с опозданием", statusColor: .orange)
-            ]
-        ),
-
-        SubjectData(
-            name: "Биомеханика",
-            progress: "42/100",
-            lessons: [
-                Lesson(title: "Лекция 1", date: "05.09.25", status: "Посещено", statusColor: .green),
-                Lesson(title: "Лекция 2", date: "12.09.25", status: "Посещено", statusColor: .green),
-                Lesson(title: "Лабораторная 1", date: "20.09.25", status: "Сдано", statusColor: .green)
-            ]
-        ),
-
-        SubjectData(
-            name: "Основы взаимодействия физических полей с биообъектами",
-            progress: "30/100",
-            lessons: [
-                Lesson(title: "Семинар 1", date: "03.09.25", status: "Посещено", statusColor: .green),
-                Lesson(title: "Семинар 2", date: "10.09.25", status: "Посещено", statusColor: .green),
-                Lesson(title: "Эссе", date: "21.09.25", status: "Не сдано", statusColor: .red)
-            ]
-        )
-
-    ]
-
-struct GradesHatView: View {
-    @Binding var selectedTab: GradesView.Tab
-    
     var body: some View {
-        VStack() {
-            VStack(spacing: 24) {
-                // Название
-                HStack {
-                    Text("Успеваемость")
-                        .font(.largeTitle)
-                        .bold()
-                        .foregroundColor(.black)
-                    Spacer()
-                }
-                // Вкладки
-                HStack(spacing: 24) {
-                    gradesTabButton(
-                        title: "Текущая",
-                        isActive: selectedTab == .current
-                    ) {
-                        selectedTab = .current
-                    }
-                    
-                    gradesTabButton(
-                        title: "Сессия",
-                        isActive: selectedTab == .session
-                    ) {
-                        selectedTab = .session
-                    }
-                //    .padding(.bottom)
-                    
-                }
-                
-                
+        VStack(spacing: 0) {
+
+            // Шапка
+            HStack {
+                Text("Успеваемость")
+                    .font(.largeTitle)
+                    .bold()
+                    .padding(.horizontal, 16)
+                    .padding(.top, 56)
+                Spacer()
             }
             
-            .padding()
-            .frame(maxWidth: .infinity)
+            // Вкладки
+            HStack(spacing: 24) {
+                gradesTabButton(
+                    title: "Текущая",
+                    isActive: selectedTab == .current
+                ) {
+                    selectedTab = .current
+                }
+                
+                gradesTabButton(
+                    title: "Сессия",
+                    isActive: selectedTab == .session
+                ) {
+                    selectedTab = .session
+                }
+            }
+            .padding(.top, 15)
+            .padding(.horizontal)
             
-            
-          
-            
-            
-        }
-        
-
-        
-    }
-    @ViewBuilder
-    private func gradesTabButton(title: String, isActive: Bool, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            Text(title)
-                .font(.headline)
-                .foregroundColor(isActive ? .white : .black)
-                .padding(.vertical, 8)
-                .padding(.horizontal, 16)
-                .background(
-                    Capsule()
-                        .fill(isActive ? Color.gradesBlue : .white)
-                        .overlay(
-                            Capsule()
-                                .stroke(Color.black.opacity(isActive ? 0 : 0.5), lineWidth: 1)
-                        )
-                )
-        }
-    }
-}
-
-
-    struct HorizontalInsetShape: Shape {
-        var insetX: CGFloat
-        var cornerRadius: CGFloat = 30
-
-        func path(in rect: CGRect) -> Path {
-            let frame = CGRect(
-                x: rect.minX + insetX,
-                y: rect.minY,
-                width: rect.width - 2 * insetX,
-                height: rect.height
-            )
-            var path = Path()
-            path.addRect(frame)
-            return path
-        }
-    }
-
-
-    
-    var body: some View {
-        ZStack(alignment: .top) {
-
-            // ScrollView с контентом
+            // Предметы
             ScrollView {
                 VStack(spacing: 12) {
                     if selectedTab == .current {
-                        ForEach(subjects, id: \.name) { subject in
-                            SubjectRowView(subject: subject)
-                        }
+                        SubjectRowView(subjectName: "Биомеханика", progress: "21/100")
+                        SubjectRowView(subjectName: "Иностранный язык", progress: "50/100")
+                        SubjectRowView(subjectName: "Клиническая терапия и хирургия", progress: "42/100")
+                        SubjectRowView(subjectName: "Медицинские информационные системы", progress: "0/100")
+                        SubjectRowView(subjectName: "Метрология, стандартизация и технические измерения", progress: "0/100")
+                        SubjectRowView(subjectName: "Основы взаимодействия физических полей биообъектами", progress: "14/100")
+                        SubjectRowView(subjectName: "Разработка программных Интернет-приложений", progress: "10/100")
+                        SubjectRowView(subjectName: "Философия", progress: "60/100")
+                        SubjectRowView(subjectName: "Элективный курс по физической культуре и спорту", progress: "36/100")
+                        SubjectRowView(subjectName: "Электроника", progress: "0/100")
                     } else {
                         SessionTabView()
                     }
                 }
                 .padding(.horizontal)
-                .padding(.top, 150) // <- отступ под шапку
+                .padding(.top)
                 .padding(.bottom, 30)
             }
             
-            VStack {
-                Rectangle()
-                    .fill(Color.white)
-                    .frame(height: 120)
-                    .ignoresSafeArea(edges: .top)
-                
-                
-            }
 
-            // Шапка с Liquid Glass поверх ScrollView
-            GradesHatView(selectedTab: $selectedTab)
-                .glassEffect(.clear, in: .rect(cornerRadius: 0, style: .continuous))
-                
-            
-           /*     .background(
-                    Rectangle()
-                            // правильный материал
-                        
-                        .mask(
-                            VStack(spacing: 0) {
-                                Rectangle()
-                                    .fill(Color.white)// нижняя часть — видимая
-                                Rectangle()
-                                    
-                                    .frame(height: 80)  // верхняя маска вырезает преломление
-                                    .opacity(0)
-                                    
-                                    
-                            }
-                        )
-                ) */
-                .clipShape(HorizontalInsetShape(insetX: 16))
-                
-            
-                .zIndex(1) // обязательно поверх ScrollView
-
-            
         }
-       
+
     }
-
-
+    
+    
     
     
     
@@ -210,16 +87,14 @@ struct GradesHatView: View {
                 .foregroundColor(isActive ? .white : .black)
                 .padding(.vertical, 8)
                 .padding(.horizontal, 16)
-                
                 .background(
                     Capsule()
-                        .fill(isActive ? Color.gradesBlue : .white)
+                        .fill(isActive ? Color(hex: "2932D9") : .white)
                         .overlay(
                             Capsule()
                                 .stroke(Color.black.opacity(isActive ? 0 : 0.5), lineWidth: 1)
                         )
                 )
-        
         }
     }
 }
@@ -233,9 +108,10 @@ struct GradesHatView: View {
 
 // Предметы с выпадением
 struct SubjectRowView: View {
-    let subject: SubjectData
+    let subjectName: String
+    let progress: String
     @State private var isExpanded = false
-
+    
     var body: some View {
         VStack(spacing: 0) {
             
@@ -245,74 +121,45 @@ struct SubjectRowView: View {
                 }
             }) {
                 HStack(alignment: .center) {
-
-                    Text(subject.name)
+                    // Название предмета
+                    Text(subjectName)
                         .font(.title2)
                         .foregroundColor(.black)
                         .multilineTextAlignment(.leading)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
 
-                    Text(subject.progress)
+                    // Прогресс
+                    Text(progress)
                         .font(.subheadline)
                         .foregroundColor(.black.opacity(0.5))
                         .padding(.leading, 4)
                         .padding(.top, 4)
 
                     Spacer(minLength: 30)
-
+                    
+                    // Стрелка
                     Image(systemName: "chevron.right")
                         .rotationEffect(.degrees(isExpanded ? 90 : 0))
                         .foregroundColor(.gray)
-                        .padding(.top, 2)
+                        .animation(.easeInOut(duration: 0.25), value: isExpanded)
                 }
                 .padding(.vertical, 8)
             }
-
-            // Выпадающий блок
+            
+            // Выпадение
             if isExpanded {
-                VStack(spacing: 12) {
-                    ForEach(subject.lessons) { lesson in
-                        gradeItem(lesson: lesson)
-                    }
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Семинар 1:")
+                    Text("Лабораторная:")
+                    Text("Контрольная:")
                 }
-                .padding(.vertical, 8)
-               
+                .padding(.leading)
+                .padding(.bottom, 8)
                 .transition(.opacity.combined(with: .move(edge: .top)))
             }
         }
-        
-        .clipped()
-    }
-
-    // -----------------------
-    // Карточка занятия
-    // -----------------------
-    @ViewBuilder
-    private func gradeItem(lesson: Lesson) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
-
-            HStack {
-                Text(lesson.title)
-                    .font(.body)
-
-                Spacer()
-
-                Text(lesson.status)
-                    .font(.subheadline)
-                    .foregroundColor(lesson.statusColor)
-            }
-
-            Text(lesson.date)
-                .font(.caption)
-                .foregroundColor(.gray)
-        }
-        .padding()
-        .background(.ultraThickMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
     }
 }
-
-
 
 
 // Сессия
@@ -337,7 +184,6 @@ struct SemesterSection: View {
                     Image(systemName: "chevron.right")
                         .rotationEffect(.degrees(isExpanded ? 90 : 0))
                         .foregroundColor(.gray)
-                        .padding(.top, 2)
                         
                 }
                 .padding(.vertical, 8)
@@ -372,9 +218,7 @@ struct SemesterSection: View {
                 .padding(.top, 4)
                 .transition(.opacity.combined(with: .move(edge: .top)))
             }
-                
         }
-        .clipped()
     }
 }
 
@@ -435,6 +279,12 @@ struct SessionTabView: View {
    }
 }
 
+
+struct Grades_Previews: PreviewProvider {
+    static var previews: some View {
+        BottomBarView(selectedTab: 3)
+    }
+}
 
 
 
