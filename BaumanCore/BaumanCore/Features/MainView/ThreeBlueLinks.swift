@@ -1,13 +1,6 @@
-//
-//  Three_blueLinks.swift
-//  Main_page
-//
-//  Created by Sofia Biriukova on 21.11.2025.
-//
-
 import SwiftUI
 
-struct Three_blueLinks: View {
+struct ThreeBlueLinks: View {
     var body: some View {
         HStack{
             Button {
@@ -35,11 +28,11 @@ struct Three_blueLinks: View {
                     .frame(width: 90, height: 90)
                     .foregroundColor(Color(red: 0.16, green: 0.19, blue: 0.85))
                     .overlay(
-                                Image("chair")
+                                Image("faculty")
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 70, height: 70)
-                                    .padding(.leading, 10),
+                                    .frame(width: 60, height: 60)
+                                    .padding(.leading, 15),
                                 alignment: .leading
                             )
             }
@@ -53,7 +46,7 @@ struct Three_blueLinks: View {
                     .frame(width: 90, height: 90)
                     .foregroundColor(Color(red: 0.16, green: 0.19, blue: 0.85))
                     .overlay(
-                            Image("fizra")
+                            Image("sport")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 60, height: 60)

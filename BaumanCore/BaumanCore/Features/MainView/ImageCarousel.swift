@@ -1,10 +1,3 @@
-//
-//  ScrollView.swift
-//  Main_page
-//
-//  Created by Sofia Biriukova on 21.11.2025.
-//
-
 import SwiftUI
 
 struct ImageCarousel: View {
