@@ -22,7 +22,6 @@ struct Map: View {
                     .font(.system(size: 34, weight: .bold))
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 20)
-                    .padding(.top, 50)
                     .padding(.bottom, 30)
                 
                 VStack(spacing: 0) {
@@ -36,7 +35,7 @@ struct Map: View {
                                     .foregroundColor(selectedFloor == floor ? .white : .primary)
                                     .frame(height: 32)
                                     .frame(maxWidth: .infinity)
-                                    .background(selectedFloor == floor ? Color(hex: "2932D9") : Color.gray.opacity(0.1))
+                                    .background(selectedFloor == floor ? AppColor.mainColor: Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                             }
                             
@@ -55,9 +54,9 @@ struct Map: View {
                         }) {
                             Image(systemName: showingLowerFloors ? "chevron.down" : "chevron.up")
                                 .font(.system(size: 14, weight: .medium))
-                                .foregroundColor(Color(hex: "2932D9"))
+                                .foregroundColor(AppColor.mainColor)
                                 .frame(width: 32, height: 32)
-                                .background(Color(hex: "2932D9").opacity(0.1))
+                                .background(AppColor.mainColor.opacity(0.1))
                                 .cornerRadius(8)
                         }
                     }
@@ -106,7 +105,7 @@ struct Map: View {
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .frame(height: 50)
-                        .background(Color(hex: "2932D9"))
+                        .background(AppColor.mainColor)
                         .cornerRadius(10)
                 }
                 .padding(.horizontal, 20)
