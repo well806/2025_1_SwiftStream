@@ -39,7 +39,7 @@ struct GradesHatView: View {
                 .padding(.horizontal, 16)
                 .background(
                     Capsule()
-                        .fill(isActive ? Color.systemblue : .white)
+                        .fill(isActive ? AppColor.mainColor : .white)
                         .overlay(
                             Capsule()
                                 .stroke(Color.black.opacity(isActive ? 0 : 0.5), lineWidth: 1)

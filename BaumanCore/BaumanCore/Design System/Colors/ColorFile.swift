@@ -26,3 +26,13 @@ enum AppColor {
     
     static let mainColor = Color(hex: "#2932D9")
 }
+
+
+
+enum MarksColor {
+    static let excellentmark = Color(hex: "#388E3C")
+    static let goodmark = Color(hex: "#81C784")
+    static let mediummark = Color(hex: "#DAA520")
+    static let badmark = Color(hex: "#E57373")
+    static let nomark = Color(hex: "#808080")
+}

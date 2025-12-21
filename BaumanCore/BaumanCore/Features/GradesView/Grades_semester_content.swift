@@ -35,7 +35,7 @@ struct SemesterSection: View {
 
             ZStack {
                 if isExpanded {
-                    VStack(alignment: .leading, spacing: 20) {
+                    VStack(alignment: .leading, spacing: 25) {
                         ForEach(subjects, id: \.0) { subject in
                             HStack(alignment: .center) {
                                 Text(subject.0)
