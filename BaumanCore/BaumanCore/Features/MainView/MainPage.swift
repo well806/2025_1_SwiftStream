@@ -2,7 +2,8 @@ import SwiftUI
 
 struct MainPage: View {
     @State private var showQR = false
-    
+    @State private var student: Student? = nil
+
     var body: some View {
         VStack(spacing: 0) {
             ImageCarousel()
@@ -11,7 +12,7 @@ struct MainPage: View {
             ThreeBlueLinks()
                 .padding(.top, 20)
             
-            HeaderView()
+            HeaderView(studentName: studentName())
                 .padding(.top, 40)
             
             Spacer()
@@ -24,6 +25,23 @@ struct MainPage: View {
         }
         .fullScreenCover(isPresented: $showQR) {
             QRView()
+        }
+        .onAppear {
+            FirebaseService().fetchStudent { fetchedStudent in
+                if let fetchedStudent = fetchedStudent {
+                    self.student = fetchedStudent
+                }
+            }
+        }
+    }
+    
+    private func studentName() -> String {
+        guard let fullName = student?.name else { return "" }
+        let parts = fullName.split(separator: " ")
+        if parts.count >= 2 {
+            return String(parts[1])
+        } else {
+            return fullName
         }
     }
     
@@ -45,9 +63,11 @@ struct MainPage: View {
     }
     
     struct HeaderView: View {
+        let studentName: String
+        
         var body: some View {
             VStack(alignment: .leading, spacing: 2) {
-                Text("Привет, Влад!")
+                Text("Привет, \(studentName)!")
                     .font(.system(size: 34, weight: .bold))
                     .padding(.bottom, 2)
                 
