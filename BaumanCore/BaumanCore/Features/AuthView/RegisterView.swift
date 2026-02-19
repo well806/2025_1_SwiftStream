@@ -15,7 +15,7 @@ struct RegisterView: View {
             
             Spacer()
             
-            Text("Для получения персонального логина и пароля необходимо обратиться в деканат Вашего факультета")
+            Text("Для получения персонального логина и пароля необходимо обратиться в деканат Вашего факультета или отправить письмо на почту support@bmstu.ru")
                 .font(.SFPro(17))
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 24)

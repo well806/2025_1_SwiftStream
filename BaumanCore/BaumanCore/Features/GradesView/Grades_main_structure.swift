@@ -3,7 +3,6 @@ import SwiftUI
 struct Grades: View {
     @State private var selectedTab: Tab = .current
 
-    // вкладки
     enum Tab {
         case current
         case session
@@ -34,22 +33,19 @@ struct Grades: View {
                 .frame(height: 120)
                 .ignoresSafeArea(edges: .top)
 
-           
-            // эффект стекла
             
-            /*    GradesHatView(selectedTab: $selectedTab)
+            /*GradesHatView(selectedTab: $selectedTab)
                     .glassEffect(.clear, in: .rect(cornerRadius: 0, style: .continuous))
                     .clipShape(HorizontalInsetShape(insetX: 16))
-                    .zIndex(1) */
+                    .zIndex(1)  */
          
-                GradesHatView(selectedTab: $selectedTab)
+               GradesHatView(selectedTab: $selectedTab)
                     .background(Color.white)
                     .clipShape(HorizontalInsetShape(insetX: 16))
                     .zIndex(1)
             
         }
         
-        // берем из базы
         .onAppear {
             FirebaseService().fetchStudent { student in
                 if let student = student {
