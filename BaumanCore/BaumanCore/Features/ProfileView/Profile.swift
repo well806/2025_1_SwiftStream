@@ -20,7 +20,7 @@ struct Profile: View {
             VStack(alignment: .leading, spacing: 16) {
                 Text("Профиль")
                     .font(.SFPro(33, weight: .regular))
-                    .foregroundColor(Color("black"))
+                    .foregroundColor(Colors.black)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 60)
                     .padding(.horizontal, 24)
@@ -36,11 +36,11 @@ struct Profile: View {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(student.name)
                             .font(.SFPro(21))
-                            .foregroundColor(Color("black"))
+                            .foregroundColor(Colors.black)
 
                         Text(student.email)
                             .font(.SFPro(14))
-                            .foregroundColor(Color("LightGray"))
+                            .foregroundColor(Colors.LightGray)
                     }
 
                     Spacer()
@@ -48,42 +48,42 @@ struct Profile: View {
                 .padding(10)
                 .background(
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color("MainColor"), lineWidth: 0.7)
+                        .stroke(Colors.MainColor, lineWidth: 0.7)
                 )
                 .padding(.horizontal, 17)
 
                 HStack {
                     Text("Группа:")
                         .font(.SFPro(15, weight: .semibold))
-                        .foregroundColor(Color("black"))
+                        .foregroundColor(Colors.black)
                     Spacer()
 
                     Text(student.group)
                         .font(.SFPro(15))
-                        .foregroundColor(Color("black"))
+                        .foregroundColor(Colors.black)
                 }
                 .padding(10)
                 .background(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color("MainColor"), lineWidth: 0.7)
+                        .stroke(Colors.MainColor, lineWidth: 0.7)
                 )
                 .padding(.horizontal, 17)
 
                 HStack {
                     Text("Личный номер:")
                         .font(.SFPro(15, weight: .semibold))
-                        .foregroundColor(Color("black"))
+                        .foregroundColor(Colors.black)
 
                     Spacer()
 
                     Text(student.studentID)
                         .font(.SFPro(15))
-                        .foregroundColor(Color("black"))
+                        .foregroundColor(Colors.black)
                 }
                 .padding(10)
                 .background(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color("MainColor"), lineWidth: 0.7)
+                        .stroke(Colors.MainColor, lineWidth: 0.7)
                 )
                 .padding(.horizontal, 17)
 
@@ -91,7 +91,7 @@ struct Profile: View {
                 HStack {
                     Text("Тема приложения:")
                         .font(.SFPro(15, weight: .semibold))
-                        .foregroundColor(Color("black"))
+                        .foregroundColor(Colors.black)
 
                     Spacer()
 
@@ -108,7 +108,7 @@ struct Profile: View {
                 .padding(10)
                 .background(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color("MainColor"), lineWidth: 0.7)
+                        .stroke(Colors.MainColor, lineWidth: 0.7)
                 )
                 .padding(.horizontal, 17)
 
@@ -116,7 +116,7 @@ struct Profile: View {
                     .padding(10)
                     .background(
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color("MainColor"), lineWidth: 0.7)
+                            .stroke(Colors.MainColor, lineWidth: 0.7)
                     )
                     .padding(.horizontal, 17)
 
@@ -125,7 +125,7 @@ struct Profile: View {
                 } label: {
                     Text("Выйти из аккаунта")
                         .font(.SFPro(15, weight: .semibold))
-                        .foregroundColor(Color("MainColor"))
+                        .foregroundColor(Colors.MainColor)
                         .frame(maxWidth: .infinity, alignment: .center)
                 }
                 .padding(.top, 20)
@@ -179,12 +179,12 @@ private struct SupportBlock: View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Служба поддержки университета:")
                 .font(.SFPro(15, weight: .semibold))
-                .foregroundColor(Color("black"))
+                .foregroundColor(Colors.black)
 
             HStack {
                 Text("Телефон:")
                     .font(.SFPro(15))
-                    .foregroundColor(Color("black"))
+                    .foregroundColor(Colors.black)
 
                 Spacer()
 
@@ -195,7 +195,7 @@ private struct SupportBlock: View {
                 } label: {
                     Text(phoneDisplay)
                         .font(.SFPro(15, weight: .semibold))
-                        .foregroundColor(Color("black"))
+                        .foregroundColor(Colors.black)
                         .underline()
                 }
             }
@@ -203,7 +203,7 @@ private struct SupportBlock: View {
             HStack {
                 Text("E-mail:")
                     .font(.SFPro(15))
-                    .foregroundColor(Color("black"))
+                    .foregroundColor(Colors.black)
 
                 Spacer()
 
@@ -214,7 +214,7 @@ private struct SupportBlock: View {
                 } label: {
                     Text(email)
                         .font(.SFPro(15, weight: .semibold))
-                        .foregroundColor(Color("black"))
+                        .foregroundColor(Colors.black)
                         .underline()
                 }
             }

@@ -56,10 +56,10 @@ struct MainPage: View {
             Button(action: action) {
                 RoundedRectangle(cornerRadius: 14)
                     .frame(height: 56)
-                    .foregroundColor(Color("MainColor"))
+                    .foregroundColor(Colors.MainColor)
                     .overlay(
                         Text("Пропуск")
-                            .foregroundColor(Color("white"))
+                            .foregroundColor(Colors.white)
                             .font(.system(size: 17, weight: .semibold))
                     )
             }

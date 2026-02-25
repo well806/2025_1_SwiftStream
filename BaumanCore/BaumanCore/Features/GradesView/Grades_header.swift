@@ -33,15 +33,15 @@ struct GradesHatView: View {
         Button(action: action) {
             Text(title)
                 .font(.headline)
-                .foregroundColor(isActive ? Color("white") : Color("black"))
+                .foregroundColor(isActive ? Colors.white : Colors.black)
                 .padding(.vertical, 8)
                 .padding(.horizontal, 16)
                 .background(
                     Capsule()
-                        .fill(isActive ? Color("MainColor") : Color("white"))
+                        .fill(isActive ? Colors.MainColor : Colors.white)
                         .overlay(
                             Capsule()
-                                .stroke(Color("black").opacity(isActive ? 0 : 0.5), lineWidth: 1)
+                                .stroke(Colors.black.opacity(isActive ? 0 : 0.5), lineWidth: 1)
                         )
                 )
         }

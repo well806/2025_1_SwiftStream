@@ -15,7 +15,7 @@ struct LoginView: View {
         VStack(spacing: 0) {
             Text("Вход в аккаунт")
                 .font(.SFPro(33))
-                .foregroundColor(Color("MainColor"))
+                .foregroundColor(Colors.MainColor)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 60)
                 .padding(.horizontal, 24)
@@ -36,14 +36,14 @@ struct LoginView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Электронная почта")
                         .font(.SFPro(17))
-                        .foregroundColor(Color("black"))
+                        .foregroundColor(Colors.black)
 
                     TextField(
                         "",
                         text: $login,
                         prompt: Text("Введите email")
                             .font(.SFPro(17))
-                            .foregroundColor(Color("LightLightGray"))
+                            .foregroundColor(Colors.LightLightGray)
                     )
                     .keyboardType(.emailAddress)
                     .autocapitalization(.none)
@@ -52,14 +52,14 @@ struct LoginView: View {
                     .frame(height: 52)
                     .background(
                         RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color("LightLightGray"), lineWidth: 1)
+                            .stroke(Colors.LightLightGray, lineWidth: 1)
                     )
                 }
 
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Пароль")
                         .font(.SFPro(17))
-                        .foregroundColor(Color("black"))
+                        .foregroundColor(Colors.black)
 
                     HStack {
                         if isPasswordVisible {
@@ -68,7 +68,7 @@ struct LoginView: View {
                                 text: $password,
                                 prompt: Text("Введите пароль")
                                     .font(.SFPro(17))
-                                    .foregroundColor(Color("LightLightGray"))
+                                    .foregroundColor(Colors.LightLightGray)
                             )
                         } else {
                             SecureField(
@@ -76,7 +76,7 @@ struct LoginView: View {
                                 text: $password,
                                 prompt: Text("Введите пароль")
                                     .font(.SFPro(17))
-                                    .foregroundColor(Color("LightLightGray"))
+                                    .foregroundColor(Colors.LightLightGray)
                             )
                         }
 
@@ -84,14 +84,14 @@ struct LoginView: View {
                             isPasswordVisible.toggle()
                         } label: {
                             Image(systemName: isPasswordVisible ? "eye.slash" : "eye")
-                                .foregroundColor(Color("LightLightGray"))
+                                .foregroundColor(Colors.LightLightGray)
                         }
                     }
                     .padding(.horizontal, 16)
                     .frame(height: 52)
                     .background(
                         RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color("LightLightGray"), lineWidth: 1)
+                            .stroke(Colors.LightLightGray, lineWidth: 1)
                     )
                 }
 
@@ -100,7 +100,7 @@ struct LoginView: View {
                 } label: {
                     Text("Забыли пароль?")
                         .font(.SFPro(17))
-                        .foregroundColor(Color("MainColor"))
+                        .foregroundColor(Colors.MainColor)
                 }
             }
             .padding(.horizontal, 24)
@@ -118,27 +118,27 @@ struct LoginView: View {
                     }
                     Text(isLoading ? "Вход..." : "Войти в аккаунт →")
                         .font(.SFPro(17, weight: .semibold))
-                        .foregroundColor(Color("white"))
+                        .foregroundColor(Colors.white)
                         .frame(maxWidth: .infinity, alignment: .center)
                 }
             }
             .disabled(isLoading)
             .frame(height: 56)
-            .background(isLoading ? Color("MainColor").opacity(0.7) : Color("MainColor"))
+            .background(isLoading ? Colors.MainColor.opacity(0.7) : Colors.MainColor)
             .cornerRadius(13)
             .padding(.horizontal, 24)
 
             HStack(spacing: 0) {
                 Text("Нет аккаунта?")
                     .font(.SFPro(17))
-                    .foregroundColor(Color("LightGray"))
+                    .foregroundColor(Colors.LightGray)
 
                 NavigationLink {
                     RegisterView()
                 } label: {
                     Text(" Создать")
                         .font(.SFPro(17))
-                        .foregroundColor(Color("MainColor"))
+                        .foregroundColor(Colors.MainColor)
                 }
             }
             .padding(.top, 12)
@@ -219,7 +219,7 @@ struct LoginView_Previews: PreviewProvider {
         return NavigationStack {
             LoginView()
                 .environmentObject(appState)
-                .tint(Color("MainColor"))
+                .tint(Colors.MainColor)
         }
     }
 }

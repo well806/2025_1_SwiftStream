@@ -8,7 +8,7 @@ struct RegisterView: View {
         VStack(spacing: 0) {
             Text("Создание аккаунта")
                 .font(.SFPro(33, weight: .semibold))
-                .foregroundColor(Color("MainColor"))
+                .foregroundColor(Colors.MainColor)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 60)
                 .padding(.horizontal, 24)
@@ -30,7 +30,7 @@ struct RegisterView: View {
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .frame(height: 56)
-                    .background(Color("MainColor"))
+                    .background(Colors.MainColor)
                     .cornerRadius(13)
             }
             .padding(.horizontal, 21)
@@ -44,7 +44,7 @@ struct RegisterView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             RegisterView()
-                .tint(Color("MainColor"))
+                .tint(Colors.MainColor)
         }
     }
 }

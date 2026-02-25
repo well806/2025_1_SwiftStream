@@ -49,7 +49,7 @@ struct ThreeBlueLinks: View {
     private func tileButton(imageName: String, size: CGFloat, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             RoundedRectangle(cornerRadius: 10)
-                .foregroundColor(Color("MainColor"))
+                .foregroundColor(Colors.MainColor)
                 .frame(width: size, height: size)
                 .overlay(
                     Image(imageName)

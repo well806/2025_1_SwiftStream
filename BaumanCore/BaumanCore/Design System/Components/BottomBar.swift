@@ -50,7 +50,7 @@ struct BottomBarView: View {
             }
             .tag(4)
         }
-        .tint(Color("MainColor"))
+        .tint(Colors.MainColor)
     }
 }
 

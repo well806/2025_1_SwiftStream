@@ -21,10 +21,10 @@ struct QRView: View {
                     Image(systemName: "chevron.left")
                     Text("Назад")
                 }
-                .foregroundColor(Color("white"))
+                .foregroundColor(Colors.white)
                 .padding(.horizontal, 18)
                 .padding(.vertical, 12)
-                .background(Color("MainColor"))
+                .background(Colors.MainColor)
                 .clipShape(Capsule())
             }
             .padding(.leading, 24)
