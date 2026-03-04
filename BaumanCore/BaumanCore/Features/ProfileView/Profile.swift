@@ -55,7 +55,7 @@ struct Profile: View {
                     }
                     .onTapGesture { showImagePicker = true }
                     .onLongPressGesture {
-                        if selectedImage != nil{
+                        if selectedImage != nil {
                             showDeleteAlert = true
                         }
                     }
@@ -85,10 +85,10 @@ struct Profile: View {
                 )
                 .padding(.horizontal, 17)
                 .sheet(isPresented: $showImagePicker) {
-                    ImagePicker(image: $selectedImage)
-                }
-                .onChange(of: selectedImage) { newImage in
-                    AvatarStorage.save(newImage)
+                    ImagePicker(
+                        image: $selectedImage,
+                        userID: student.studentID.isEmpty ? "anonymous" : student.studentID
+                    )
                 }
     
                 HStack {
@@ -175,13 +175,20 @@ struct Profile: View {
         .onChange(of: selectedThemeRawValue) { _ in
             updateTheme()
         }
+        
         .onAppear {
             updateTheme()
-            selectedImage = AvatarStorage.load() 
             FirebaseService().fetchStudent { fetchedStudent in
-                DispatchQueue.main.async {
-                    if let fetchedStudent = fetchedStudent {
-                        self.student = fetchedStudent
+                if let fetchedStudent = fetchedStudent {
+                    Task {
+                        await MainActor.run {
+                            self.student = fetchedStudent
+                        }
+                        let userID = fetchedStudent.studentID.isEmpty ? "anonymous" : fetchedStudent.studentID
+                        let avatar = await AvatarStorage.load(userID: userID)
+                        await MainActor.run {
+                            self.selectedImage = avatar
+                        }
                     }
                 }
             }
@@ -190,12 +197,11 @@ struct Profile: View {
 
     private let themeOptions = ["Системная", "Светлая", "Темная"]
 
-    
     private func deleteAvatar() {
         selectedImage = nil
-        AvatarStorage.delete()
+        let userID = student.studentID.isEmpty ? "anonymous" : student.studentID
+        AvatarStorage.delete(userID: userID)
     }
-    
     
     private func updateTheme() {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,

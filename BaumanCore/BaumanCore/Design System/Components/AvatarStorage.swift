@@ -1,41 +1,61 @@
 import UIKit
 
 final class AvatarStorage {
-    private static let fileName = "user_avatar.jpg"
-    private static let maxFileSize: Int = 300_000
-    private static let maxCompressionIterations = 10
+    private static let maxCompressionQuality: CGFloat = 0.7
+    private static let maxSize: CGFloat = 800
+    
 
-    private static var fileURL: URL? {
+    private static let fileQueue = DispatchQueue(label: "com.app.avatar",
+                                                  attributes: .concurrent)
+
+    private static func fileURL(for userID: String) -> URL? {
         FileManager.default
             .urls(for: .documentDirectory, in: .userDomainMask)
-            .first?.appendingPathComponent(fileName)
+            .first?.appendingPathComponent("avatar_\(userID).jpg")
     }
 
-    static func save(_ image: UIImage?) {
-        guard let image = image,
-              let url = fileURL else { return }
+    static func save(_ image: UIImage?, userID: String) async {
+        
+        guard let image = image, let url = fileURL(for: userID) else { return }
 
-        var compression: CGFloat = 0.9
-        var data: Data?
-
-        for _ in 0..<maxCompressionIterations {
-            data = image.jpegData(compressionQuality: compression)
-            if let data = data, data.count <= maxFileSize { break }
-            compression -= 0.1
+        let resized = resize(image, to: maxSize)
+        guard let data = resized.jpegData(compressionQuality: maxCompressionQuality) else { return }
+        
+        await withCheckedContinuation { continuation in
+            fileQueue.async {
+                try? data.write(to: url)
+                continuation.resume()
+            }
         }
-
-        guard let finalData = data else { return }
-        try? finalData.write(to: url)
     }
 
-    static func load() -> UIImage? {
-        guard let url = fileURL,
-              let data = try? Data(contentsOf: url) else { return nil }
-        return UIImage(data: data)
+    static func load(userID: String) async -> UIImage? {
+        guard let url = fileURL(for: userID) else { return nil }
+
+        return await withCheckedContinuation { continuation in
+            fileQueue.async {
+                let data = try? Data(contentsOf: url)
+                let image = data.flatMap { UIImage(data: $0) }
+                continuation.resume(returning: image)
+            }
+        }
     }
 
-    static func delete() {
-        guard let url = fileURL else { return }
+    static func delete(userID: String) {
+        guard let url = fileURL(for: userID) else { return }
         try? FileManager.default.removeItem(at: url)
+    }
+
+    private static func resize(_ image: UIImage, to maxSize: CGFloat) -> UIImage {
+        let coef = max(image.size.width, image.size.height) / maxSize
+        guard coef > 1 else { return image }
+        
+        let newSize = CGSize(width: image.size.width / coef,
+                            height: image.size.height / coef)
+        
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0)
+        defer { UIGraphicsEndImageContext() }
+        image.draw(in: CGRect(origin: .zero, size: newSize))
+        return UIGraphicsGetImageFromCurrentImageContext() ?? image
     }
 }
