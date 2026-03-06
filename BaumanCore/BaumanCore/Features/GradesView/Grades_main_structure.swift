@@ -1,4 +1,6 @@
 import SwiftUI
+import Combine
+import FirebaseAuth
 
 struct Grades: View {
     @State private var selectedTab: Tab = .current
@@ -11,6 +13,8 @@ struct Grades: View {
     @State private var subjects: [SubjectData] = []
     @State private var semesters: [Semester] = []
 
+    @StateObject private var studentVM = StudentViewModel()
+    
     var body: some View {
         ZStack(alignment: .top) {
             ScrollView {
@@ -27,26 +31,39 @@ struct Grades: View {
                 .padding(.top, 150)
                 .padding(.bottom, 30)
             }
+            
+            Rectangle()
+                .fill(Color.white)
+                .frame(height: 120)
+                .ignoresSafeArea(edges: .top)
+            
+            // эффект стекла
+            
+        
+            /*GradesHatView(selectedTab: $selectedTab)
+                    .glassEffect(.clear, in: .rect(cornerRadius: 0, style: .continuous))
+                    .clipShape(HorizontalInsetShape(insetX: 16))
+                    .zIndex(1)  */
 
             GradesHatView(selectedTab: $selectedTab)
+                .background(Color.white)
                 .clipShape(HorizontalInsetShape(insetX: 16))
                 .zIndex(1)
         }
         .onAppear {
-            FirebaseService().fetchStudent { student in
-                if let student = student {
-                    self.subjects = student.subjects
-                    self.semesters = student.semesters
-                } else {
-                    self.subjects = []
-                    self.semesters = []
-                }
-            }
+            studentVM.fetchStudent()
+        }
+        
+        
+        // Подписываемся на обновления ViewModel
+        .onReceive(studentVM.$subjects) { subjects in
+            self.subjects = subjects
+        }
+        .onReceive(studentVM.$semesters) { semesters in
+            self.semesters = semesters
         }
     }
 }
-
-
 
 struct SessionTabView: View {
     var semesters: [Semester]
