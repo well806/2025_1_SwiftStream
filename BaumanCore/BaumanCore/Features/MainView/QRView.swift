@@ -19,7 +19,7 @@ struct QRView: View {
             } label: {
                 HStack(spacing: 10) {
                     Image(systemName: "chevron.left")
-                    Text("Назад")
+                    Text(Translation.ForgotPassword.backButton)
                 }
                 .foregroundColor(Colors.white)
                 .padding(.horizontal, 18)

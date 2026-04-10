@@ -1,13 +1,39 @@
 import SwiftUI
+import FirebaseAuth
 
 @MainActor
 final class AppState: ObservableObject {
     @Published var isLoggedIn: Bool = false
+    @Published var isAuthResolved: Bool = false
     @Published var student: Student? = nil
-    
+
+    private var authStateHandle: AuthStateDidChangeListenerHandle?
+
+    init() {
+        authStateHandle = Auth.auth().addStateDidChangeListener { [weak self] _, user in
+            guard let self = self else { return }
+
+            self.isLoggedIn = user != nil
+            self.isAuthResolved = true
+
+            if user == nil {
+                self.student = nil
+                MainPageViewModel.reset()
+            }
+        }
+    }
+
     func logout() {
-        MainPageViewModel.reset()
-        student = nil        
-        isLoggedIn = false
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            print("Ошибка выхода из аккаунта: \(error.localizedDescription)")
+        }
+    }
+
+    deinit {
+        if let authStateHandle {
+            Auth.auth().removeStateDidChangeListener(authStateHandle)
+        }
     }
 }
