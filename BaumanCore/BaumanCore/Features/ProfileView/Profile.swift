@@ -22,14 +22,14 @@ struct Profile: View {
     ]
 
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             VStack(alignment: .leading, spacing: 16) {
                 Text(Translation.Profile.title)
-                    .font(.SFPro(33, weight: .regular))
+                    .fontWeight(.bold)
+                    .font(.system(size: 30))
                     .foregroundColor(Colors.black)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.top, 60)
-                    .padding(.horizontal, 24)
+                    .padding(.bottom, 5)
+
                 HStack(spacing: 15) {
                     ZStack(alignment: .bottomTrailing) {
                         Group {
@@ -75,7 +75,6 @@ struct Profile: View {
                     }
 
                     VStack(alignment: .leading, spacing: 4) {
-
                         if let name = vm.student?.name {
                             Text(name)
                                 .font(.SFPro(21))
@@ -98,7 +97,6 @@ struct Profile: View {
                     RoundedRectangle(cornerRadius: 16)
                         .stroke(Colors.MainColor, lineWidth: 0.7)
                 )
-                .padding(.horizontal, 17)
                 .sheet(isPresented: $showImagePicker) {
                     ImagePicker(
                         image: $vm.avatar,
@@ -124,7 +122,6 @@ struct Profile: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Colors.MainColor, lineWidth: 0.7)
                 )
-                .padding(.horizontal, 17)
 
                 HStack {
                     Text(Translation.Profile.personalNumber)
@@ -142,7 +139,6 @@ struct Profile: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Colors.MainColor, lineWidth: 0.7)
                 )
-                .padding(.horizontal, 17)
 
                 HStack {
                     Text(Translation.Profile.appTheme)
@@ -166,7 +162,6 @@ struct Profile: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Colors.MainColor, lineWidth: 0.7)
                 )
-                .padding(.horizontal, 17)
 
                 HStack {
                     Text(Translation.Profile.appLanguage)
@@ -190,7 +185,6 @@ struct Profile: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Colors.MainColor, lineWidth: 0.7)
                 )
-                .padding(.horizontal, 17)
 
                 SupportBlock(openURL: openURL)
                     .padding(10)
@@ -198,7 +192,6 @@ struct Profile: View {
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Colors.MainColor, lineWidth: 0.7)
                     )
-                    .padding(.horizontal, 17)
 
                 Button {
                     appState.logout()
@@ -208,34 +201,17 @@ struct Profile: View {
                         .foregroundColor(Colors.MainColor)
                         .frame(maxWidth: .infinity, alignment: .center)
                 }
-                .padding(.top, 20)
-                .padding(.bottom, 24)
+                .padding(.top, 12)
 
                 Spacer(minLength: 80)
             }
-        }
-        .onChange(of: selectedThemeRawValue) { _ in
-            updateTheme()
+            .frame(maxWidth: .infinity, alignment: .topLeading)
+            .padding(.horizontal, 17)
+            .padding(.top, 20)
+            .padding(.bottom, 100)
         }
         .onAppear {
-            updateTheme()
             vm.loadIfNeeded()
-        }
-    }
-
-    private func updateTheme() {
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let window = windowScene.windows.first else { return }
-
-        switch selectedThemeRawValue {
-        case 0:
-            window.overrideUserInterfaceStyle = .unspecified
-        case 1:
-            window.overrideUserInterfaceStyle = .light
-        case 2:
-            window.overrideUserInterfaceStyle = .dark
-        default:
-            window.overrideUserInterfaceStyle = .unspecified
         }
     }
 }
@@ -308,8 +284,8 @@ struct Profile_Previews: PreviewProvider {
                 .previewDisplayName("English")
 
             BottomBarView(selectedTab: 4)
-                .environmentObject(AppState())
                 .environment(\.locale, Locale(identifier: "zh-Hans"))
+                .environmentObject(AppState())
                 .previewDisplayName("Chinese")
         }
     }

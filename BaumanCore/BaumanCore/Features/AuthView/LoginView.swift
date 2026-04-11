@@ -201,7 +201,6 @@ struct LoginView: View {
                     }
                 } else {
                     print("Успешный вход для: \(self.login)")
-                    self.appState.isLoggedIn = true
                 }
             }
         }
